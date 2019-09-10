@@ -1,0 +1,130 @@
+<root>
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <session shema="ray" password="ray"/>
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <!-- ~ описание спец символов для параметров: 
+    %               - прием параметра с формы
+	^               - параметры на поле БД елемента sql в элементе rec_reading
+	:               - параметр подстановки используется в sql по стандарту
+	%имя_памаметра% - связной пар. в элементе form с lookup_options
+	{имя_памаметра} - параметр определяет приложение
+  -->
+  <lookup_options>
+    <item name="pAccountID" type="integer" default_expression="%pAccountID"/>
+	<item name="pAaccountName" type="string" default_expression="%pAaccountName"/>
+	<item name="p1" type="integer" default_expression="0"/>
+	<item name="p2" type="string" default_expression="текстовое" size="30"/>
+    <item name="p3" type="boolean"/>	
+	<item name="p4" type="date" default_expression="{FirstDay}"/>
+	<item name="p5" type="integer"/>	
+	<item name="p6" type="string"/>	
+	<item name="p7" type="integer"/>
+	<item name="p8" type="string"/>
+	<item name="p91" type="integer"/>
+	<item name="p92" type="integer"/>
+	<item name="p10" type="string"/>
+	<item name="p11" type="string"/>	
+  </lookup_options>   
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <form caption="Демо вкладка за %pDateBeg% - %pDateEnd%" mode="edit"/>
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <sql>
+
+SELECT d.* 
+  FROM demo d
+ WHERE d.demo_id &lt;&gt; 1
+    -- коментарий запроса
+   AND d.name IS NOT NULL 
+ ORDER BY 1, 2 DESC
+ 
+</sql> 
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <pick width_key="350" width_value="250">
+    <item caption="Номер счета" lookup_item_id="pAccount" control="pick" sql_unit_id="pAccount"/>
+	<item caption="Числовое" lookup_item_id="p1" condition="AND d.demo_id &gt; :p1" hint="Подсказка для пользователя"/>
+    <item caption="Текстовое" lookup_item_id="p2" condition="AND d.name = :p2"/>
+    <item caption="Логическое" lookup_item_id="p3" condition="AND d.sign_block = :p3"/>
+    <item caption="Дата" lookup_item_id="p4" condition="AND p4.LD = :p4"/>
+    <item caption="Список фиксированый, числовой ключ (-1, 0, 1)" lookup_item_id="p5" control="pick" condition="AND d.name = :p5" keys="-1;0;1" items="не определено;значение нет;значение да"/>
+    <item caption="Список фиксированый, текстовый ключ (не определено, нет, да)" lookup_item_id="p6" control="pick" condition="AND d.name = :p6" keys="не определено;значение нет;значение да" items="не определено;значение нет;значени да"/>
+    <item caption="Список запроса, числовой ключ" lookup_item_id="p7" control="pick" condition="AND d.demo_id = :p7" sql_unit_id="p7"/>
+    <item caption="Список запроса, текстовый ключ" lookup_item_id="p8" control="pick" condition="AND d.name = :p8" sql_unit_id="p8"/>
+    <item caption="Форма запроса 1, числовой ключ" lookup_item_id="p91" condition="AND 100 &lt;&gt; :p91" control="FormQuickDataSearch" sql_unit_id="p91"/>
+    <item caption="Форма запроса 2, текстовый ключ" lookup_item_id="p92" condition="AND 100 &lt;&gt; :p92" control="FormQuickDataSearch" sql_unit_id="p92"/>
+	<item caption="Текстовое с конструкцией IN" lookup_item_id="p10" condition="AND d.demo_id IN (:p10)" control="FormQuickDataSearch" sql_unit_id="p91" multi_select="True" color="red" hint="Введите текст через кому или пробел"/>
+    <item caption="Текстовое с конструкцией EXISTS" lookup_item_id="p11" condition="AND EXISTS (:p11)" color="blue" hint="Задайте текстовую фильтр-строку"/>
+  </pick>
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <edit key_field="ex_rates_id" key_sequence="seq_ex_rates">
+    <fields>er_date;byn;eur;pln;rub;uah;usd</fields>
+	<default_expression>er_date={Date};byn=0;eur=0;pln=0;rub=0;uah=0;usd=0</default_expression>
+  </edit>
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <grid row_lines="True">
+    <fields>demo_id;name;num;clob;sign_block;key_id;ld</fields>
+    <title>demo_id=демо_ид;name=имя;clob=мемо;sign_block=вкл/выкл;ld=дата</title>
+    <width>demo_id=10;sign_block=10;clob=0;name=25</width>
+    <checkoxes>sign_block</checkoxes>
+    <font_width>demo_id;clob</font_width>
+    <font_color>demo_id=red;key_id=blue;ld=green;num=yellow</font_color>
+    <invisible>demo_id</invisible>
+  </grid>
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <action>
+    <rec_new signature="FormTreAccount" show_mode="child">mode=append</rec_new>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<rec_reading caption="Счет навигация">
+	  <item caption="Формирование платежных документов" id="5013">pAccountID=^account_id;pAccount=^account;pAccountName=^account_name</item>
+	  <item caption="Выписка по счету" id="5014">pAccountID=^account_id;pAccount=^account;pAccountName=^account_name</item>
+	  <item signature="FormAccountNav" show_mode="modal">pAccountID=^account_id;pAccount=^account;pAccountName=^account_name</item>
+	  <item signature="">Резерв</item>
+	  <item signature="">Резерв</item>
+	  <item signature="">Резерв</item>
+	</rec_reading>   
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<rec_delete>
+      <item table="DOC" primary_key="doc_id"/>
+      <item table="DOC_CH" primary_key="doc_id"/>
+    </rec_delete>	
+  </action>
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <tree_list default_node_expanded="True" key_field_name="account" ref_parent_field_name="tree_parent_id"/>   
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+ <sql_unit id="p7">
+
+SELECT k.key_id,
+       k.signature
+  FROM key k
+  
+</sql_unit>
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <sql_unit id="p8">
+
+SELECT k.signature,
+       k.key_id
+  FROM key k
+  
+</sql_unit>  
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <sql_unit id="p91">
+
+SELECT user_id,
+       ROWNUM || &apos; &apos; || &apos;название&apos; name
+  FROM USERS u
+ WHERE ROWNUM &lt; 100
+  
+</sql_unit>
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <sql_unit id="p92">
+
+select d.doc_id, d.update_user, d.* from textil.DOC d where rownum &lt;= 100000
+  
+</sql_unit>
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <sql_unit id="p11">
+
+EXISTS (SELECT 1 FROM DUAL WHERE 1 = :p11)  
+
+</sql_unit>
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+</root>

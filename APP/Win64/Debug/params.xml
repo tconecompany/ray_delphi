@@ -1,0 +1,9 @@
+<root>
+  <update file="\\filesrv\tk$\TS_ready\RAY\update.zip"/>
+  <connect default="client" user_name="Sys" password="sys4">
+    <!--direct server="192.168.0.1:1521:ERPTC"/-->	
+    <direct server="192.168.1.2:1521:ORCL"/>	
+    <client server="RAYTC" home="OraClient12Home1"/>
+  </connect>
+  <autostart module="5"/>
+</root> 

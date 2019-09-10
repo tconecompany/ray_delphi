@@ -1,0 +1,84 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{92A78B26-3B49-424C-B5FB-9EA9D307082C}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="ray64.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="mconf.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="rconf.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="keymaker.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="updater64.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="ray64">
+        <MSBuild Projects="ray64.dproj"/>
+    </Target>
+    <Target Name="ray64:Clean">
+        <MSBuild Projects="ray64.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ray64:Make">
+        <MSBuild Projects="ray64.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="mconf">
+        <MSBuild Projects="mconf.dproj"/>
+    </Target>
+    <Target Name="mconf:Clean">
+        <MSBuild Projects="mconf.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="mconf:Make">
+        <MSBuild Projects="mconf.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="rconf">
+        <MSBuild Projects="rconf.dproj"/>
+    </Target>
+    <Target Name="rconf:Clean">
+        <MSBuild Projects="rconf.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="rconf:Make">
+        <MSBuild Projects="rconf.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="keymaker">
+        <MSBuild Projects="keymaker.dproj"/>
+    </Target>
+    <Target Name="keymaker:Clean">
+        <MSBuild Projects="keymaker.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="keymaker:Make">
+        <MSBuild Projects="keymaker.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="updater64">
+        <MSBuild Projects="updater64.dproj"/>
+    </Target>
+    <Target Name="updater64:Clean">
+        <MSBuild Projects="updater64.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="updater64:Make">
+        <MSBuild Projects="updater64.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="ray64;mconf;rconf;keymaker;updater64"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="ray64:Clean;mconf:Clean;rconf:Clean;keymaker:Clean;updater64:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="ray64:Make;mconf:Make;rconf:Make;keymaker:Make;updater64:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

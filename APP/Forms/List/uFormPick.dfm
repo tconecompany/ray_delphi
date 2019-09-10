@@ -1,0 +1,167 @@
+object FormPick: TFormPick
+  Left = 0
+  Top = 0
+  Anchors = []
+  BorderIcons = [biSystemMenu]
+  Caption = #1054#1090#1073#1086#1088
+  ClientHeight = 237
+  ClientWidth = 384
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  Icon.Data = {
+    0000010001001010000001002000680400001600000028000000100000002000
+    0000010020000000000040040000000000000000000000000000000000000000
+    0000000000000000000000000000000000000000000000000000000000000000
+    0000000000000000000000000000000000000000000000000000000000000000
+    0000000000000000000000000000000000000000000000000000000000000000
+    0000000000000000000000000000000000000000000000000000000000000000
+    0000000000000000000000000000000000000000000000000000000000000000
+    0000000000000000000000000000000000000000000000000000000000000000
+    000000000000B17D4AFFB17D4AFFB17D4AFF0000000000000000000000000000
+    000000000000B17D4AFFB17D4AFFB17D4AFF0000000000000000000000000000
+    000000000000B17D4AFFFFFFFFFFB17D4AFF0000000000000000000000000000
+    000000000000B17D4AFFFFFFFFFFB17D4AFF0000000000000000000000000000
+    000000000000B17D4AFFB17D4AFFB17D4AFFD9C5B2FF00000000000000000000
+    0000D9C5B2FFB17D4AFFB17D4AFFB17D4AFF0000000000000000000000000000
+    000000000000B17D4AFFB17D4AFFB17D4AFFB17D4AFFB17D4AFFB17D4AFFB17D
+    4AFFB17D4AFFB17D4AFFB17D4AFFB17D4AFF0000000000000000000000000000
+    000000000000B17D4AFFFFFFFFFFB17D4AFFB17D4AFFB17D4AFFB17D4AFFFFFF
+    FFFFB17D4AFFB17D4AFFB17D4AFFB17D4AFF0000000000000000000000000000
+    000000000000B17D4AFFFFFFFFFFB17D4AFFB17D4AFFB17D4AFFB17D4AFFFFFF
+    FFFFB17D4AFFB17D4AFFB17D4AFFB17D4AFF0000000000000000000000000000
+    000000000000B17D4AFFB17D4AFFB17D4AFFB17D4AFFB17D4AFFB17D4AFFB17D
+    4AFFB17D4AFFB17D4AFFB17D4AFFB17D4AFF0000000000000000000000000000
+    00000000000000000000B17D4AFFB17D4AFFB17D4AFFB17D4AFFD9C5B2FFB17D
+    4AFFB17D4AFFB17D4AFFB17D4AFF000000000000000000000000000000000000
+    0000000000000000000000000000B17D4AFFB17D4AFF00000000000000000000
+    0000B17D4AFFB17D4AFF00000000000000000000000000000000000000000000
+    0000000000000000000000000000B17D4AFFB17D4AFF00000000000000000000
+    0000B17D4AFFB17D4AFF00000000000000000000000000000000000000000000
+    0000000000000000000000000000B17D4AFFB17D4AFF00000000000000000000
+    0000B17D4AFFB17D4AFF00000000000000000000000000000000000000000000
+    0000000000000000000000000000000000000000000000000000000000000000
+    0000000000000000000000000000000000000000000000000000000000000000
+    0000000000000000000000000000000000000000000000000000000000000000
+    000000000000000000000000000000000000000000000000000000000000FFFF
+    0000FFFF0000FFFF0000C7C70000C7C70000C3870000C0070000C0070000C007
+    0000C0070000E00F0000F39F0000F39F0000F39F0000FFFF0000FFFF0000}
+  OldCreateOrder = False
+  Position = poMainFormCenter
+  PixelsPerInch = 96
+  TextHeight = 13
+  object VGrid: TDBVertGridEh
+    Left = 0
+    Top = 0
+    Width = 384
+    Height = 177
+    Align = alClient
+    AllowedOperations = []
+    AllowedSelections = []
+    RowCategories.CategoryProps = <>
+    LabelColParams.FillStyle = cfstSolidEh
+    LabelColParams.HorzLines = True
+    LabelColParams.VertLines = True
+    PrintService.ColorSchema = pcsFullColorEh
+    DataColParams.Font.Charset = DEFAULT_CHARSET
+    DataColParams.Font.Color = clWindowText
+    DataColParams.Font.Height = -11
+    DataColParams.Font.Name = 'Tahoma'
+    DataColParams.Font.Style = []
+    DataColParams.ParentFont = False
+    DataSource = dsMemTable
+    DrawGraphicData = True
+    DrawMemoText = True
+    Options = [dgvhEditing, dgvhAlwaysShowEditor, dgvhLabelCol, dgvhColLines, dgvhRowLines, dgvhTabs, dgvhAlwaysShowSelection]
+    OptionsEh = [dgvhHighlightFocusEh, dgvhClearSelectionEh, dgvhHotTrackEh]
+    RowsDefValues.AlwaysShowEditButton = True
+    RowsDefValues.AutoDropDown = True
+    RowsDefValues.EndEllipsis = True
+    RowsDefValues.FitRowHeightToData = True
+    RowsDefValues.RowLabel.FitHeightToData = False
+    RowsDefValues.RowLabel.ToolTips = True
+    RowsDefValues.RowLabel.WordWrap = True
+    RowsDefValues.ToolTips = True
+    TabOrder = 0
+    LabelColWidth = 86
+    OnRowEnter = VGridRowEnter
+  end
+  object StatusBar: TStatusBar
+    Left = 0
+    Top = 218
+    Width = 384
+    Height = 19
+    Panels = <
+      item
+        Text = #1055#1086#1076#1089#1082#1072#1079#1082#1072
+        Width = 50
+      end>
+  end
+  object Panel: TPanel
+    Left = 0
+    Top = 177
+    Width = 384
+    Height = 41
+    Align = alBottom
+    ShowCaption = False
+    TabOrder = 2
+    DesignSize = (
+      384
+      41)
+    object bOK: TButton
+      Left = 31
+      Top = 8
+      Width = 75
+      Height = 24
+      Action = ActionExecute
+      ModalResult = 1
+      TabOrder = 0
+    end
+    object bCancel: TButton
+      Left = 114
+      Top = 8
+      Width = 75
+      Height = 24
+      Caption = #1054#1090#1084#1077#1085#1072
+      ModalResult = 8
+      TabOrder = 1
+    end
+    object bReset: TButton
+      Left = 278
+      Top = 8
+      Width = 75
+      Height = 24
+      Action = ActionReset
+      Anchors = [akTop, akRight]
+      TabOrder = 2
+    end
+  end
+  object MemTable: TMemTableEh
+    FieldDefs = <>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 248
+    Top = 88
+  end
+  object ActionList: TActionList
+    Left = 24
+    Top = 32
+    object ActionExecute: TAction
+      Caption = 'OK'
+      OnExecute = ActionExecuteExecute
+    end
+    object ActionReset: TAction
+      Caption = #1057#1073#1088#1086#1089#1080#1090#1100
+      OnExecute = ActionResetExecute
+    end
+  end
+  object dsMemTable: TDataSource
+    DataSet = MemTable
+    Left = 312
+    Top = 88
+  end
+end
