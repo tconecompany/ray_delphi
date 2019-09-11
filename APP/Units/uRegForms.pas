@@ -20,10 +20,10 @@ uses
   System.Contnrs,
   Vcl.Forms;
 
-{ TStart }
+{ TLaunch }
 
 type
-  TStart = record
+  TLaunch = record
     Signature  : string;                                                        // сигнатура формы
     FormName   : string;                                                        // имя формы
     ID         : integer;                                                       // ид репозитория
@@ -31,10 +31,10 @@ type
     LaunchMenu : string;                                                        // меню запуска
   end;
 
-{ TDynActiveStarts }
+{ TDynLaunches }
 
 type
-  TDynStarts = array of TStart;
+  TDynLaunches = array of TLaunch;
 
 { TRegForms }
 
@@ -42,12 +42,12 @@ type
   TRegForms = class
   private
 
-    FItems             : TDynStarts;
+    FItems             : TDynLaunches;
     FModalResult       : integer;
     FLimitChildWindows : integer;
     FTag               : integer;
 
-    function GetLastStart: TStart;
+    function GetLastLaunch: TLaunch;
     function GetCount: integer;
 
     procedure OnCloseQuery(Sender: TObject; var CanClose: Boolean);             // переназначение для события закрытия формы
@@ -65,9 +65,9 @@ type
 
     procedure Execute(Signature: string);                                       // запустить программу
 
-    property LastStart: TStart read GetLastStart;                               // Последняя запущеная форма
+    property LastLaunch: TLaunch read GetLastLaunch;                            // последняя запущеная форма
     property Count: integer read GetCount;                                      // количество запущеных форм
-    property Items: TDynStarts read FItems;                                     // спиcок запущеных форм
+    property Items: TDynLaunches read FItems;                                   // спиcок запущеных форм
     property ModalResult: integer read FModalResult;                            // результат закрытия модальной формы
 
     property LimitChildWindows: integer read FLimitChildWindows                 // максимальное количество создания сессий/окон
@@ -188,7 +188,7 @@ begin
   Result := Length(FItems);
 end;
 
-function TRegForms.GetLastStart: TStart;
+function TRegForms.GetLastLaunch: TLaunch;
 begin
   Result := FItems[Count - 1];
 end;

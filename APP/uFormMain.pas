@@ -28,7 +28,8 @@ uses
   AdvTabSet,
   AdvAlertWindow,
   // my
-  uConst;
+  uConst,
+  uRegForms;
 
 // TFormMain
 type
@@ -109,10 +110,10 @@ type
     miUserManual: TMenuItem;
     ActionUserManual: TAction;
     N8: TMenuItem;
-    miSaveMaket: TMenuItem;
-    miLoadMaket: TMenuItem;
-    ActionSaveMaket: TAction;
-    ActionLoadMaket: TAction;
+    miSaveLayout: TMenuItem;
+    miLoadLayout: TMenuItem;
+    ActionSaveLayout: TAction;
+    ActionLoadLayout: TAction;
     tbMessage: TToolButton;
     tbCalc: TToolButton;
     ToolButton6: TToolButton;
@@ -149,8 +150,8 @@ type
     procedure ActionFormShowExecute(Sender: TObject);
     procedure ActioniSwitchInterfaceExecute(Sender: TObject);
     procedure miGoClick(Sender: TObject);
-    procedure ActionSaveMaketExecute(Sender: TObject);
-    procedure ActionLoadMaketExecute(Sender: TObject);
+    procedure ActionSaveLayoutExecute(Sender: TObject);
+    procedure ActionLoadLayoutExecute(Sender: TObject);
     procedure ActionOpenTheHouseFolderExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
 
@@ -161,6 +162,7 @@ type
     procedure WMMainMDIChild(var Message: TMessage); message WM_MAIN_MDI_CHILD; // считываение сигнала при открытии/закрытии дочерней формы
 
     procedure SwitchInterface(ModuleID: integer);                               // переключить пользовательский интерфейс
+    procedure LayoutOpen(Launches: TDynLaunches);                               // открывает макет
     procedure MenuVisible(ID: integer; Logical: boolean);                       // делает видимим/невидимим пункт меню по коду cвойста Tag
     procedure MenuEnabled(ID: integer; Logical: boolean);                       // делает активным/неактивным пункт меню по коду cвойста Tag
     procedure MenuWindowSubMenuOnClick(Sender: TObject);                        // клик по меню ќкно св€зано с MDITabSet
@@ -188,12 +190,12 @@ uses
   uMenuXML,
   uTypes,
   uStrUtilsExt,
-  uRegForms,
   uRepository,
   uFormSplash,
   uFormChangePass,
   uFormUserSettings,
-  uFormUnLock;
+  uFormUnLock,
+  uFormLayout;
 
 { TFormMain }
 
@@ -215,7 +217,7 @@ begin
   if     (Length(User.Settings.Logical) > 0)
      and User.Settings.Logical[1]
   then
-    ActionLoadMaket.Execute;
+    LayoutOpen(LayoutByID); // возвращает последний макет пользовател€
 
 end;
 
@@ -332,6 +334,35 @@ begin
 
   // автостарт
   PostMessage(Handle, WM_AFTER_CREATE, 0, 0);
+
+end;
+
+procedure TFormMain.LayoutOpen(Launches: TDynLaunches);
+var
+  i: integer;
+begin
+
+  // предупреждаем пользовател€
+  if     (FormMain.MDIChildCount > 0)
+     and (MessageBox(Handle,
+                     PChar('ѕредыдущие вкладки будут закрыты. ѕродолжить?'),
+                     PChar('ѕредупреждение'),
+                     MB_ICONQUESTION or MB_YESNO) = mrNo)
+  then
+    Exit;
+
+  // закрываем все ранние открытые вкладки
+  ActionCloseAll.Execute;
+
+  for i := 0 to High(Launches) do
+  begin
+    if Launches[i].ID > 0 then
+      Repository.Exec(Launches[i].ID, Launches[i].Param)
+    else
+      RegForms.ShowChild(Launches[i].Signature, Launches[i].ID, Launches[i].Param);
+    //
+    Application.ProcessMessages;
+  end;
 
 end;
 
@@ -518,44 +549,20 @@ begin
   FormMain.ArrangeIcons;
 end;
 
-procedure TFormMain.ActionSaveMaketExecute(Sender: TObject);
+procedure TFormMain.ActionSaveLayoutExecute(Sender: TObject);
 begin
-  Repository.SaveMaket(User.ID);
+  ShowLayoutSave();
 end;
 
-procedure TFormMain.ActionLoadMaketExecute(Sender: TObject);
+procedure TFormMain.ActionLoadLayoutExecute(Sender: TObject);
 var
-  Starts : TDynStarts;
-  i      : integer;
+  ID: integer;
 begin
 
-  if     (FormMain.MDIChildCount > 0)
-     and (MessageBox(Handle,
-                     PChar('ѕредыдущие вкладки будут закрыты. ѕродолжить?'),
-                     PChar('ѕредупреждение'),
-                     MB_ICONQUESTION or MB_YESNO) = mrNo)
-  then
-    Exit;
+  ShowLayoutLoad(ID);
 
-  // выгружаем макет с базы
-  Starts := Repository.LoadMaket(User.ID);
-
-  if High(Starts) < 0 then
-    raise Exception.Create('ћакет не найден');
-
-  // закрываем все ранние открытые вкладки
-  ActionCloseAll.Execute;
-
-  for i := 0 to High(Starts) do
-  begin
-    if Starts[i].ID > 0 then
-      Repository.Exec(Starts[i].ID, Starts[i].Param)
-    else
-      RegForms.ShowChild(Starts[i].Signature,
-                         Starts[i].ID,
-                         Starts[i].Param);
-    Application.ProcessMessages;
-  end;
+  if ID > 0 then
+    LayoutOpen(LayoutByID(ID));
 
 end;
 
@@ -721,7 +728,7 @@ begin
   ActionChildsHorizontal.Enabled := Logical;
   ActionChildsVertical.Enabled   := Logical;
   ActionChildsArrangeAll.Enabled := Logical;
-  ActionSaveMaket.Enabled        := Logical;
+  ActionSaveLayout.Enabled       := Logical;
   ActionCloseAll.Enabled         := Logical;
   ActionWindowMinimisize.Enabled := Logical;
   ActionWindowMaximisize.Enabled := Logical;

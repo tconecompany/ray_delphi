@@ -143,7 +143,7 @@ begin
   cMaster := TConductorOverAll.Create(Self,
                                       tACCOUNTS,
                                       dsACCOUNTS,
-                                      RegForms.LastStart.Param,
+                                      RegForms.LastLaunch.Param,
                                       FrameTitle.lTitle);
 
   // detail. кто управляет дебетом счета ACCOUNTS_USERS

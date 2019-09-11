@@ -25,6 +25,7 @@ type
   TDataModuleTrade = class(TDataModule)
     tDICT_STATUS: TOraTable;
     qCOR_TYPE_ID_12: TOraQuery;
+    dsCOR_TYPE_ID_12: TOraDataSource;
   private
 
     { Private declarations }

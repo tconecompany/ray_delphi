@@ -242,6 +242,7 @@ object FormTreAccount: TFormTreAccount
         FieldName = 'COR_ID'
         Footers = <>
         LookupParams.KeyFieldNames = 'COR_ID'
+        LookupParams.LookupDataSet = DataModuleTrade.qCOR_TYPE_ID_12
         LookupParams.LookupDisplayFieldName = 'FNAME'
         LookupParams.LookupKeyFieldNames = 'COR_ID'
         Title.Caption = #1054#1090#1076#1077#1083
@@ -637,8 +638,8 @@ object FormTreAccount: TFormTreAccount
     SequenceMode = smInsert
     Session = OraSession
     CachedUpdates = True
-    Left = 64
-    Top = 307
+    Left = 56
+    Top = 427
     object tACCOUNTS_USERSACCOUNT_ID: TFloatField
       FieldName = 'ACCOUNT_ID'
       Required = True
@@ -661,7 +662,7 @@ object FormTreAccount: TFormTreAccount
     Session = OraSession
     CachedUpdates = True
     Left = 560
-    Top = 307
+    Top = 427
     object tACCOUNTS_COMM_OPERACCOUNT_ID: TFloatField
       FieldName = 'ACCOUNT_ID'
       Required = True
@@ -680,13 +681,13 @@ object FormTreAccount: TFormTreAccount
     DataSet = tACCOUNTS_COMM_OPER
     OnStateChange = dsACCOUNTS_COMM_OPERStateChange
     Left = 704
-    Top = 307
+    Top = 427
   end
   object dsACCOUNTS_USERS: TOraDataSource
     AutoEdit = False
     DataSet = tACCOUNTS_USERS
     OnStateChange = dsACCOUNTS_USERSStateChange
-    Left = 176
-    Top = 307
+    Left = 168
+    Top = 427
   end
 end

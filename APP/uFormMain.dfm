@@ -284,11 +284,11 @@ object FormMain: TFormMain
       object N6: TMenuItem
         Caption = '-'
       end
-      object miSaveMaket: TMenuItem
-        Action = ActionSaveMaket
+      object miSaveLayout: TMenuItem
+        Action = ActionSaveLayout
       end
-      object miLoadMaket: TMenuItem
-        Action = ActionLoadMaket
+      object miLoadLayout: TMenuItem
+        Action = ActionLoadLayout
       end
       object N8: TMenuItem
         Caption = '-'
@@ -434,18 +434,18 @@ object FormMain: TFormMain
       ImageIndex = 17
       OnExecute = ActionChildsArrangeAllExecute
     end
-    object ActionSaveMaket: TAction
+    object ActionSaveLayout: TAction
       Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1052#1072#1082#1077#1090
       Enabled = False
       ImageIndex = 18
       ShortCut = 113
-      OnExecute = ActionSaveMaketExecute
+      OnExecute = ActionSaveLayoutExecute
     end
-    object ActionLoadMaket: TAction
+    object ActionLoadLayout: TAction
       Caption = #1047#1072#1075#1088#1091#1079#1080#1090#1100' '#1052#1072#1082#1077#1090
       ImageIndex = 19
       ShortCut = 114
-      OnExecute = ActionLoadMaketExecute
+      OnExecute = ActionLoadLayoutExecute
     end
     object ActionWindowMinimisize: TAction
       Caption = #1057#1074#1077#1088#1085#1091#1090#1100' '#1042#1089#1077

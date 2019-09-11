@@ -7,6 +7,7 @@ uses
   uTypes in 'Units\uTypes.pas',
   uConst in 'Units\uConst.pas',
   uStrUtilsExt in 'Units\uStrUtilsExt.pas',
+  uAssembly in 'Units\uAssembly.pas',
   uInit in 'Units\uInit.pas',
   uParams in 'Units\uParams.pas',
   uUser in 'Units\uUser.pas',
@@ -25,11 +26,13 @@ uses
   uDataModuleTrade in 'DataModule\uDataModuleTrade.pas' {DataModuleTrade: TDataModule},
   uDataModuleTre in 'DataModule\uDataModuleTre.pas' {DataModuleTre: TDataModule},
   uDataModuleFin in 'DataModule\uDataModuleFin.pas' {DataModuleFin: TDataModule},
+  uDataModuleImages in 'DataModule\uDataModuleImages.pas' {DataModuleImages: TDataModule},
   uFormMain in 'uFormMain.pas' {FormMain},
   uFormSplash in 'Forms\uFormSplash.pas' {FormSplash},
   uFormRegistration in 'Forms\uFormRegistration.pas' {FormRegistration},
   uFormChangePass in 'Forms\uFormChangePass.pas' {FormChangePass},
   uFormUnLock in 'Forms\uFormUnLock.pas' {FormUnLock},
+  uFormLayout in 'Forms\uFormLayout.pas' {FormLayout},
   uFormUserSettings in 'Forms\uFormUserSettings.pas' {FormUserSettings},
   uFormList in 'Forms\List\uFormList.pas' {FormList},
   uFormPick in 'Forms\List\uFormPick.pas' {FormPick},
@@ -47,13 +50,10 @@ uses
   uFormTrePayDoc in 'Forms\Tre\uFormTrePayDoc.pas' {FormTrePayDoc},
   uFormTreAccountNav in 'Forms\Tre\uFormTreAccountNav.pas' {FormTreAccountNav},
   uFormTreBudgPay in 'Forms\Tre\uFormTreBudgPay.pas' {FormTreBudgPay},
+  uFormTreAccountStatement in 'Forms\Tre\uFormTreAccountStatement.pas' {FormTreAccountStatement},
   uFrameTitle in 'Frames\uFrameTitle.pas' {FrameTitle: TFrame},
   uFrameCUUser in 'Frames\uFrameCUUser.pas' {FrameCUUser: TFrame},
-  uFrameTradeDoc in 'Frames\Trade\uFrameTradeDoc.pas' {FrameTradeDoc: TFrame},
-  uFrameSmartNav in 'Frames\uFrameSmartNav.pas' {FrameSmartNav: TFrame},
-  uFormTreAccountStatement in 'Forms\Tre\uFormTreAccountStatement.pas' {FormTreAccountStatement},
-  uAssembly in 'Units\uAssembly.pas',
-  uDataModuleImages in 'DataModule\uDataModuleImages.pas' {DataModuleImages: TDataModule};
+  uFrameTradeDoc in 'Frames\Trade\uFrameTradeDoc.pas' {FrameTradeDoc: TFrame};
 
 {$R *.res}
 

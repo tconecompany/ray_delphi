@@ -5,7 +5,7 @@
 {                      TRepository                      }
 {                  Репозиторий запусков                 }
 {                                                       }
-{        Дата изменения: 14.08.2019 (Build 1.0.01)      }
+{        Дата изменения: 11.09.2019 (Build 1.0.01)      }
 {                                                       }
 {        Copyright (c) 2019-2019 by Zaviruha A.         }
 {                                                       }
@@ -147,9 +147,6 @@ type
 
     procedure Exec(ID: integer; Param: string='');                              // запустить репозиторий
     procedure ExecModal(ID: integer; Param: string='');                         // запустить репозиторий принудительно в модальном режиме
-    procedure SaveMaket(UserID: integer);                                       // сохраняет активные запуски с регистра форм (репозиторий оптимальное место для этой работы. как то так!!! пользователь не связан с рег. форм, и наоборот)
-
-    function LoadMaket(UserID: integer): TDynStarts;                            // загружает макет активных запусков для пользователя
 
     property ID: integer read FID write SetID;                                  // id репозитория для исполнения
     property Signature: string read FSignature;
@@ -497,100 +494,6 @@ begin
   Self.ID := ID;
 
   RegForms.ShowModal(Repository.FSignature, ID, NVL(Param, FParam));
-
-end;
-
-procedure TRepository.SaveMaket(UserID: integer);
-var
-  xNode : PXMLNode;
-  i     : integer;
-begin
-
-  {
-    <root>
-      <active_starts>
-        <item signature="" form_name="" id="" param=""/>
-        <item signature="" form_name="" id="" param=""/>
-        <item signature="" form_name="" id="" param=""/>
-        <item signature="" form_name="" id="" param=""/>
-      </active_starts>
-    </root>
-  }
-
-  //
-  FXML.WriterSettings.IndentType := itIndent;
-  FXML.Clear(True);
-  FXML.AddChild('root');
-
-  // active_starts
-  xNode := FXML.DocumentElement.AddChild('active_starts');
-
-  for i := 0 to High(RegForms.Items) do
-  begin
-    xNode := xNode.AddChild('item');
-    xNode.AddAttribute('signature', RegForms.Items[i].Signature);
-    xNode.AddAttribute('form_name', RegForms.Items[i].FormName);
-    xNode.AddAttribute('id', RegForms.Items[i].ID.ToString);
-    xNode.AddAttribute('param', RegForms.Items[i].Param);
-    xNode := FXML.DocumentElement.SelectNode('active_starts');
-  end;
-
-  // сохраняем в бд
-  try
-    FQuery.SQL.Text := 'UPDATE USERS u' + #10
-                     + '   SET u.xml_maket = :pXML' + #10
-                     + ' WHERE u.user_id = :pUserID';
-
-    FQuery.ParamByName('pXML').AsWideString := FXML.XML;
-    FQuery.ParamByName('pUserID').AsInteger := UserID;
-    FQuery.Execute;
-  finally
-    FQuery.Close;
-    FXML.Clear(True);
-  end;
-
-end;
-
-function TRepository.LoadMaket(UserID: integer): TDynStarts;
-var
-  xNodeList : IXMLNodeList;
-  xNode     : PXMLNode;
-begin
-
-  FQuery.SQL.Text := 'SELECT u.xml_maket' + #10
-                   + '  FROM USERS u' + #10
-                   + ' WHERE u.user_id = :pUserID';
-
-  FQuery.ParamByName('pUserID').AsInteger := UserID;
-
-  FQuery.Open;
-
-  try
-
-    FXML.LoadFromXML(FQuery.Fields.FieldByName('xml_maket').AsWideString);
-
-    xNode := FXML.DocumentElement;
-
-    // active_starts
-    xNodeList := xNode.SelectNodes('active_starts/item');
-    xNode     := xNodeList.GetFirst;
-    SetLength(Result, xNodeList.Count);
-
-    while (xNode <> nil) do
-    begin
-      Result[xNodeList.IndexOf(xNode)].Signature := xNode.GetAttribute('signature');
-      Result[xNodeList.IndexOf(xNode)].FormName  := xNode.GetAttribute('form_name');
-      Result[xNodeList.IndexOf(xNode)].ID        := xNode.GetAttribute('id').ToInteger;
-      Result[xNodeList.IndexOf(xNode)].Param     := xNode.GetAttribute('param');
-      xNodeList.GetNext(xNode);
-    end;
-
-    FXML.Clear(True);
-
-  except
-  end;
-
-  FQuery.Close;
 
 end;
 

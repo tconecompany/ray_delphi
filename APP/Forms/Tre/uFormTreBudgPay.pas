@@ -92,7 +92,7 @@ begin
   cMaster := TConductorOverAll.Create(Self,
                                       tDICT_BUDG_PAY,
                                       dsDICT_BUDG_PAY,
-                                      RegForms.LastStart.Param,
+                                      RegForms.LastLaunch.Param,
                                       FrameTitle.lTitle);
 
   // задаем свойства для гл. таблицы-ввода

@@ -136,7 +136,7 @@ type
   private
     { Private declarations }
 
-    Start               : TStart;                                               // состояние последнего запуска с RegForms
+    Launch              : TLaunch;                                              // состояние последнего запуска с RegForms
     ModuleSignature     : string;
     RepositorySignature : string;
     RepositoryParam     : string;
@@ -214,7 +214,7 @@ var
 begin
 
   // сохраняем состояние запуска
-  Start               := RegForms.LastStart;          // последний запуск (имя дин. формы среда присваивает после создания)
+  Launch              := RegForms.LastLaunch;         // последний запуск (имя дин. формы среда присваивает после создания)
   ModuleSignature     := User.ActiveModule.Signature; // активный модуль который запустил конфигурацию
   RepositorySignature := Repository.Signature;        // сигнатура репозитория
   RepositoryParam     := Repository.Param;            // параметр репозитория
@@ -225,7 +225,7 @@ begin
   LookupOptions := Copy(RecConf.LookupOptions);
 
   // масив параметров формы
-  dpForm := StrToDynParams(Start.Param);
+  dpForm := StrToDynParams(Launch.Param);
 
   // начальные значение списка переменных подстановки
   for i := 0 to High(LookupOptions) do
@@ -831,13 +831,13 @@ begin
   StringList.Add(RPad('Ключ доступа', 25) + ': ' + User.Key.Signature);
   StringList.Add(RPad('Модуль', 25) + ': ' + ModuleSignature);
   StringList.Add(Format(RPad('Отчетный период', 25) + ': %s - %s', [DateToStr(User.Period.DateBeg), DateToStr(User.Period.DateBeg)]));
-  StringList.Add(RPad('Меню запуска', 25) + ': ' + Start.LaunchMenu);
+  StringList.Add(RPad('Меню запуска', 25) + ': ' + Launch.LaunchMenu);
   StringList.Add(RPad('Репозиторий, #', 25) + ': ' + Self.Tag.ToString);
   StringList.Add(RPad('Репозиторий, сигнатура', 25) + ': ' + RepositorySignature);
   StringList.Add(RPad('Репозиторий, параметр', 25) + ': ' + RepositoryParam);
   StringList.Add(RPad('Репозиторий, описание', 25) + ': ' + RepositoryDescribe);
   StringList.Add(RPad('Форма, имя', 25) + ': ' + Self.Name);
-  StringList.Add(RPad('Форма, параметр', 25) + ': ' + Start.Param);
+  StringList.Add(RPad('Форма, параметр', 25) + ': ' + Launch.Param);
   StringList.Add('');
 
   // LookupOptions

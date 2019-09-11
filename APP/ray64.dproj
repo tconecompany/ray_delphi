@@ -148,6 +148,7 @@
         <DCCReference Include="Units\uTypes.pas"/>
         <DCCReference Include="Units\uConst.pas"/>
         <DCCReference Include="Units\uStrUtilsExt.pas"/>
+        <DCCReference Include="Units\uAssembly.pas"/>
         <DCCReference Include="Units\uInit.pas"/>
         <DCCReference Include="Units\uParams.pas"/>
         <DCCReference Include="Units\uUser.pas"/>
@@ -181,6 +182,10 @@
             <Form>DataModuleFin</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
+        <DCCReference Include="DataModule\uDataModuleImages.pas">
+            <Form>DataModuleImages</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
         <DCCReference Include="uFormMain.pas">
             <Form>FormMain</Form>
         </DCCReference>
@@ -195,6 +200,9 @@
         </DCCReference>
         <DCCReference Include="Forms\uFormUnLock.pas">
             <Form>FormUnLock</Form>
+        </DCCReference>
+        <DCCReference Include="Forms\uFormLayout.pas">
+            <Form>FormLayout</Form>
         </DCCReference>
         <DCCReference Include="Forms\uFormUserSettings.pas">
             <Form>FormUserSettings</Form>
@@ -247,6 +255,9 @@
         <DCCReference Include="Forms\Tre\uFormTreBudgPay.pas">
             <Form>FormTreBudgPay</Form>
         </DCCReference>
+        <DCCReference Include="Forms\Tre\uFormTreAccountStatement.pas">
+            <Form>FormTreAccountStatement</Form>
+        </DCCReference>
         <DCCReference Include="Frames\uFrameTitle.pas">
             <Form>FrameTitle</Form>
             <DesignClass>TFrame</DesignClass>
@@ -258,18 +269,6 @@
         <DCCReference Include="Frames\Trade\uFrameTradeDoc.pas">
             <Form>FrameTradeDoc</Form>
             <DesignClass>TFrame</DesignClass>
-        </DCCReference>
-        <DCCReference Include="Frames\uFrameSmartNav.pas">
-            <Form>FrameSmartNav</Form>
-            <DesignClass>TFrame</DesignClass>
-        </DCCReference>
-        <DCCReference Include="Forms\Tre\uFormTreAccountStatement.pas">
-            <Form>FormTreAccountStatement</Form>
-        </DCCReference>
-        <DCCReference Include="Units\uAssembly.pas"/>
-        <DCCReference Include="DataModule\uDataModuleImages.pas">
-            <Form>DataModuleImages</Form>
-            <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
@@ -303,12 +302,6 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Win32\Debug\ray64.exe" Configuration="Debug" Class="ProjectOutput">
-                    <Platform Name="Win32">
-                        <RemoteName>ray64.exe</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
                 <DeployFile LocalName="Win64\Debug\ray64.rsm" Configuration="Debug" Class="DebugSymbols">
                     <Platform Name="Win64">
                         <RemoteName>ray64.rsm</RemoteName>
@@ -317,6 +310,12 @@
                 </DeployFile>
                 <DeployFile LocalName="Win64\Debug\ray64.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win64">
+                        <RemoteName>ray64.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Win32\Debug\ray64.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
                         <RemoteName>ray64.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>

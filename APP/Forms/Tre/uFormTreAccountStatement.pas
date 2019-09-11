@@ -98,7 +98,7 @@ begin
   qUSER_ACCOUNTS.Active := True;
   qUSER_ACCOUNTS.ParamByName('pUserID').AsInteger := User.ID;
 
-  fAccount.Value := StrToIntDef(GetValues(RegForms.LastStart.Param, 'pAccount'),
+  fAccount.Value := StrToIntDef(GetValues(RegForms.LastLaunch.Param, 'pAccount'),
                                 qUSER_ACCOUNTS.FieldByName('account').AsInteger);
 
   fAccount.SelectAll;

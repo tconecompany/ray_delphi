@@ -4,6 +4,7 @@ object DataModuleRay: TDataModuleRay
   Height = 378
   Width = 488
   object OraSession: TOraSession
+    Options.Direct = True
     Username = 'ray'
     Server = '192.168.1.2:1521:ORCL'
     LoginPrompt = False

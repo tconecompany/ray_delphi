@@ -16,4 +16,9 @@ object DataModuleTrade: TDataModuleTrade
     Left = 47
     Top = 80
   end
+  object dsCOR_TYPE_ID_12: TOraDataSource
+    DataSet = qCOR_TYPE_ID_12
+    Left = 152
+    Top = 80
+  end
 end
